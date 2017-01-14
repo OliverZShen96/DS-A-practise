@@ -10,8 +10,8 @@ public class Node<E> {
 		this.edges = new ArrayList<Edge<E>>();
 	}
 	
-	public void addEdge(Node<E> other) {
-		this.edges.add(new Edge<E>(this, other));
+	public void addEdge(Node<E> other, int weight) {
+		this.edges.add(new Edge<E>(this, other, weight));
 	}
 	
 	public List<Edge<E>> getEdges() {

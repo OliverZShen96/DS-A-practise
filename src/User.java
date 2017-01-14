@@ -6,15 +6,15 @@ public class User {
 		g.addNode("b");
 		g.addNode("c");
 		g.addNode("d");
+		g.addNode("e");
 		
-		g.addUndirectedConnection("a", "b");
-		g.addUndirectedConnection("a", "c");
-		g.addUndirectedConnection("b", "d");
+		g.addUndirectedConnection("a", "b", 5);
+		g.addUndirectedConnection("a", "c", 2);
+		g.addUndirectedConnection("b", "d", 3);
+		g.addUndirectedConnection("c", "e", 3);
+		g.addUndirectedConnection("b", "e", 7);
 		
-		g.printConnections();
-		
-		g.dfs("a");
-		g.bfs("a");
+		g.dijkstras("a");
 		
 	}
 }
