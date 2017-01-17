@@ -22,24 +22,29 @@ void showSet(Set);
 void setInsert(Set, Item);
 int setDelete(Set, Item);
 Set setCopy(Set);
+int setMember(Set, Item);
+Set setUnion(Set, Set);
+Set setIntersect(Set, Set);
+int setCard(Set);
 
 int main (int argc, char * argv[]) {
-    Set s = newSet();
-    setInsert(s, 'a');
-    setInsert(s, 'b');
-    setInsert(s, 'b');
-    setInsert(s, 'a');
-    setInsert(s, 'c');
-    setInsert(s, 'd');
-    showSet(s);
-    Set t = setCopy(s);
-    showSet(t);
-    
-    setDelete(s, 'e');
-    showSet(s);
+    Set s1 = newSet();
+    setInsert(s1, 'a');
+    setInsert(s1, 'b');
+    setInsert(s1, 'c');
 
-    dropSet(s);
-    dropSet(t);
+    Set s2 = newSet();
+    setInsert(s2, '1');
+    setInsert(s2, 'b');
+    setInsert(s2, '3');
+
+    Set i = setIntersect(s1, s2);
+    Set u = setUnion(s1, s2);
+
+    showSet(i);
+    showSet(u);    
+    
+    
     return EXIT_SUCCESS;
 }
 
@@ -103,6 +108,33 @@ int setDelete(Set s, Item it) {
 
 }
 
+int setMember(Set s, Item it) {
+    for (int i = 0; i < s->nElems; i++) {
+        if (eq(it, s->values[i])) return TRUE;
+    }    
+    return FALSE;
+}
+
+Set setUnion(Set s1, Set s2) {
+    Set u = setCopy(s1);
+
+    for (int i = 0; i < s2->nElems; i++) {
+        if (!setMember(u, s2->values[i])) setInsert(u, s2->values[i]);
+    }
+    return u;
+}
+
+Set setIntersect(Set s1, Set s2) {
+    Set intersect = newSet();
+    for (int i = 0; i < s1->nElems; i++) {
+        if (setMember(s2, s1->values[i])) setInsert(intersect, s1->values[i]);
+    }
+    return intersect;
+}
+
+int setCard(Set s) {
+    return s->nElems;
+}
 
 
 
